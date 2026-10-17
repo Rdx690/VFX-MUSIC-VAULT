@@ -55,5 +55,23 @@ if(artistSection){
 document.querySelectorAll("#autoMixGrid [data-query]").forEach(b=>b.addEventListener("click",()=>{query="";$("#searchInput").value="";searchRemote(b.dataset.query,{title:b.dataset.title});$("#tracksSection").scrollIntoView({behavior:"smooth",block:"start"})}));
 document.querySelectorAll("[data-artist]").forEach(b=>b.addEventListener("click",()=>{query="";$("#searchInput").value="";searchRemote(b.dataset.artist,{title:b.dataset.artist+" Mix"});$("#tracksSection").scrollIntoView({behavior:"smooth",block:"start"})}));
 
+
+/* Installable Progressive Web App */
+let installPrompt=null;
+const installButton=$("#installAppBtn");
+function showInstallButton(){if(installButton)installButton.hidden=false}
+if("serviceWorker" in navigator && location.protocol!=="file:"){window.addEventListener("load",()=>navigator.serviceWorker.register("/sw.js").catch(()=>{}))}
+window.addEventListener("beforeinstallprompt",event=>{event.preventDefault();installPrompt=event;showInstallButton()});
+window.addEventListener("appinstalled",()=>{installPrompt=null;if(installButton)installButton.hidden=true;toast("VFX MUSIC VAULT installed!")});
+if(installButton){
+ installButton.addEventListener("click",async()=>{
+  if(installPrompt){installPrompt.prompt();const choice=await installPrompt.userChoice;installPrompt=null;if(choice?.outcome==="accepted"){installButton.hidden=true}else{toast("You can install it anytime from your browser menu.")};return}
+  if(window.matchMedia("(display-mode: standalone)").matches){toast("VFX MUSIC VAULT is already installed.");return}
+  toast("To install: open browser ⋮ menu, then tap Install app or Add to Home screen.");
+  if(/iPhone|iPad|iPod/i.test(navigator.userAgent))toast("Tap Share, then Add to Home Screen.");
+ });
+ if(/Android|iPhone|iPad|iPod/i.test(navigator.userAgent))showInstallButton();
+}
+
 const themeSelect=$("#themeSelect");function setTheme(name){const allowed=["neon","light","studio","cyberpunk","glass","amoled","sunset"];const theme=allowed.includes(name)?name:"neon";document.body.dataset.theme=theme;if(themeSelect)themeSelect.value=theme;try{localStorage.setItem("vfx-theme",theme)}catch{}const meta=document.querySelector('meta[name="theme-color"]');if(meta)meta.content=theme==="light"?"#f3f5fb":theme==="amoled"?"#000000":theme==="cyberpunk"?"#050810":theme==="sunset"?"#160d1b":"#080a12"}if(themeSelect){let savedTheme="neon";try{savedTheme=localStorage.getItem("vfx-theme")||"neon"}catch{}setTheme(savedTheme);themeSelect.addEventListener("change",e=>{setTheme(e.target.value);toast("Theme changed · "+e.target.options[e.target.selectedIndex].text)})}else setTheme("neon");$("#backBtn").addEventListener("click",()=>window.history.back());$("#forwardBtn").addEventListener("click",()=>window.history.forward());$("#year").textContent=new Date().getFullYear();render();searchRemote(["Arijit Singh romantic hits","Shreya Ghoshal hits","trending Hindi songs","Assamese hit songs"][Math.floor(Math.random()*4)],{title:"Your Daily Mix",silent:true});
 })();
