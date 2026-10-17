@@ -11,6 +11,9 @@ The backend uses these provided endpoints:
 
 Search results provide title, artist, artwork, and (when supplied by the API) a stream URL. When search results do not include a usable stream URL, the app fetches song details on play and selects the highest-quality available `downloadUrl`. The exact upstream response shape can vary; the backend normalizes common response formats.
 
+## Themes
+Use the theme selector in the top header to switch between seven styles: VFX Neon, iOS Light, Music Studio, Cyberpunk X, Glass Luxury, AMOLED Black, and Sunset Glow. Your selected theme is saved in browser localStorage and restored on your next visit.
+
 ## Features
 - Search JioSaavn tracks by song, artist, or keyword
 - Cover artwork and artist/album details
