@@ -26,3 +26,35 @@ body[data-theme="sunset"] .hero{background:linear-gradient(115deg,#4c1c46,#2b173
 
 /* PWA install button */
 .install-app-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;white-space:nowrap;border:1px solid #5ef3e566;background:linear-gradient(110deg,#9b74ff2c,#5ef3e51a);color:#f5f5fb;border-radius:22px;padding:10px 14px;font:700 11px var(--display);box-shadow:0 0 22px #8b65ff17}.install-app-btn span{font-size:17px;color:var(--cyan)}.install-app-btn:hover{border-color:var(--cyan);transform:translateY(-1px)}.install-app-btn[hidden]{display:none}@media(max-width:680px){.topbar{gap:9px}.install-app-btn{padding:9px 10px;font-size:10px}.searchbox{width:auto;flex:1}.top-arrows{display:none}}
+
+/* Clean Spotify-inspired button system: text-first, no emoji decorations */
+button{font-family:var(--font);transition:background-color .18s ease,color .18s ease,border-color .18s ease,transform .18s ease,opacity .18s ease}
+.nav-item{position:relative;gap:0;padding:12px 14px;font-weight:600;border-radius:7px;color:#b3b3b3}
+.nav-item:hover{background:#ffffff12;color:#fff}
+.nav-item.active{background:#ffffff10;color:#fff;box-shadow:inset 3px 0 #1ed760}
+.nav-item span{display:none}
+.install-app-btn{display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;border:0;background:#1ed760;color:#07130b;border-radius:999px;padding:11px 17px;font:700 12px var(--font);letter-spacing:.1px;box-shadow:none;min-height:38px}
+.install-app-btn:hover{background:#3be477;color:#061108;transform:scale(1.03)}
+.install-app-btn:active,.primary-btn:active,.play-btn:active{transform:scale(.97)}
+.primary-btn{background:#1ed760;color:#061108;box-shadow:none;border-radius:999px;padding:13px 22px;font-weight:700}
+.primary-btn:hover{background:#3be477;transform:scale(1.025)}
+.primary-btn span{display:none}
+.text-btn{border-radius:999px;padding:8px 12px;font-weight:700}
+.text-btn:hover{color:#fff;text-decoration:underline}
+.top-arrows button{display:grid;place-items:center;background:#090b10;border:0;color:#fff}
+.top-arrows button:hover{background:#252832}
+.icon-btn,.row-play,.heart-btn,.player-controls button,.player-extra button{border-radius:999px;transition:transform .18s ease,background .18s ease,color .18s ease}
+.row-play{background:#1ed760;color:#061108;border:0;width:30px;height:30px;font-weight:800}
+.row-play:hover{background:#3be477;transform:scale(1.06)}
+.play-btn{background:#1ed760!important;color:#061108!important;border:0!important;width:42px;height:42px;border-radius:50%;box-shadow:none}
+.play-btn:hover{background:#3be477!important;transform:scale(1.06)}
+.player-controls button:hover,.player-extra button:hover{color:#fff;background:#ffffff14}
+.mood-card{border-radius:8px;box-shadow:none}
+.mood-card:hover{transform:translateY(-2px);border-color:#1ed76066}
+.mood-card>b{display:none}
+.artist-card{border-radius:9px;background:#181818;border-color:transparent}
+.artist-card:hover{background:#242424;border-color:#1ed76055}
+.avatar{border:0;background:#242424;color:#fff;font-weight:700}
+.searchbox:focus-within{border-color:#fff;background:#242424}
+.searchbox{background:#242424;border:1px solid transparent}
+@media(max-width:680px){.install-app-btn{padding:9px 13px;font-size:11px;min-height:35px}.nav-item{padding:11px 12px}.primary-btn{padding:12px 19px}}
