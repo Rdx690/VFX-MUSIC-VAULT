@@ -73,5 +73,20 @@ if(installButton){
  if(/Android|iPhone|iPad|iPod/i.test(navigator.userAgent))showInstallButton();
 }
 
+
+/* Song lyrics panel */
+const lyricsPanel=$("#lyricsPanel"),lyricsContent=$("#lyricsContent");
+function closeLyrics(){if(lyricsPanel)lyricsPanel.hidden=true}
+$("#closeLyrics")?.addEventListener("click",closeLyrics);
+$("#lyricsBtn")?.addEventListener("click",async()=>{
+ const t=tracks[current];if(!t){toast("Play a song first to find its lyrics.");return}
+ lyricsPanel.hidden=false;$("#lyricsTitle").textContent=t.title||"Lyrics";$("#lyricsArtist").textContent=t.artist||"Unknown artist";lyricsContent.textContent="Searching lyrics…";
+ try{const d=await api("/api/lyrics?title="+encodeURIComponent(t.title||"")+"&artist="+encodeURIComponent(t.artist||"")+"&duration="+encodeURIComponent(t.duration||audio.duration||0));
+  if(d.syncedLyrics){lyricsContent.innerHTML="";const lines=d.syncedLyrics.split("\n").map(line=>line.replace(/^\[[^\]]+\]\s*/,"").trim()).filter(Boolean);lines.forEach(line=>{const p=document.createElement("p");p.textContent=line;lyricsContent.appendChild(p)})}
+  else if(d.lyrics){lyricsContent.textContent=d.lyrics}
+  else lyricsContent.textContent="Lyrics are not available for this track yet.";
+ }catch(e){lyricsContent.textContent="Could not load lyrics right now. Please try again later."}
+});
+
 const themeSelect=$("#themeSelect");function setTheme(name){const allowed=["neon","light","studio","cyberpunk","glass","amoled","sunset"];const theme=allowed.includes(name)?name:"neon";document.body.dataset.theme=theme;if(themeSelect)themeSelect.value=theme;try{localStorage.setItem("vfx-theme",theme)}catch{}const meta=document.querySelector('meta[name="theme-color"]');if(meta)meta.content=theme==="light"?"#f3f5fb":theme==="amoled"?"#000000":theme==="cyberpunk"?"#050810":theme==="sunset"?"#160d1b":"#080a12"}if(themeSelect){let savedTheme="neon";try{savedTheme=localStorage.getItem("vfx-theme")||"neon"}catch{}setTheme(savedTheme);themeSelect.addEventListener("change",e=>{setTheme(e.target.value);toast("Theme changed · "+e.target.options[e.target.selectedIndex].text)})}else setTheme("neon");$("#backBtn").addEventListener("click",()=>window.history.back());$("#forwardBtn").addEventListener("click",()=>window.history.forward());$("#year").textContent=new Date().getFullYear();render();searchRemote(["Arijit Singh romantic hits","Shreya Ghoshal hits","trending Hindi songs","Assamese hit songs"][Math.floor(Math.random()*4)],{title:"Your Daily Mix",silent:true});
 })();
