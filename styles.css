@@ -175,3 +175,48 @@ input[type=range]{accent-color:#b8ff6c}
  .track-actions .row-play{border-radius:10px}
  .player{border-radius:18px 18px 0 0}
 }
+
+/* VFX premium motion layer — restrained, accessible, original */
+:root{--vfx-glow:#b8ff6c;--vfx-deep:#080b13}
+@keyframes vfx-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@keyframes vfx-vinyl{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes vfx-breathe{0%,100%{box-shadow:0 0 0 0 #b8ff6c00}50%{box-shadow:0 0 32px 2px #b8ff6c24}}
+@keyframes vfx-eq{0%,100%{transform:scaleY(.35);opacity:.55}50%{transform:scaleY(1);opacity:1}}
+@keyframes vfx-shimmer{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+@keyframes vfx-rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.hero{position:relative;isolation:isolate;overflow:hidden;animation:vfx-rise .55s ease both}
+.hero:after{content:"";position:absolute;inset:0;pointer-events:none;z-index:-1;background:linear-gradient(115deg,transparent 25%,#ffffff05 48%,transparent 70%);background-size:220% 100%;animation:vfx-shimmer 12s linear infinite}
+.hero-disc{animation:vfx-float 5s ease-in-out infinite, vfx-breathe 4s ease-in-out infinite}
+.hero-disc:before{content:"";position:absolute;inset:9px;border-radius:50%;border:1px solid #ffffff18;background:repeating-radial-gradient(circle,transparent 0 8px,#ffffff12 9px 10px);animation:vfx-vinyl 18s linear infinite}
+.disc-core{position:relative;z-index:1}
+.ambient-a{animation:vfx-float 9s ease-in-out infinite}
+.ambient-b{animation:vfx-float 12s ease-in-out infinite reverse}
+.mini-eq i{transform-origin:center;animation:vfx-eq .8s ease-in-out infinite}
+.mini-eq i:nth-child(2){animation-delay:.12s}.mini-eq i:nth-child(3){animation-delay:.24s}.mini-eq i:nth-child(4){animation-delay:.36s}.mini-eq i:nth-child(5){animation-delay:.48s}
+.track-row{animation:vfx-rise .28s ease both;transition:background .2s,border-color .2s,transform .2s}
+.track-row:hover{transform:translateX(3px)}
+.track-cover{position:relative;isolation:isolate;box-shadow:0 5px 18px #0003}
+.track-cover:not(.has-art):after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(145deg,#ffffff20,transparent 55%),radial-gradient(circle at 75% 20%,#b8ff6c40,transparent 55%);pointer-events:none}
+.track-cover img{transition:transform .35s ease,filter .35s ease}
+.track-row:hover .track-cover img{transform:scale(1.06);filter:saturate(1.08)}
+.track-actions button,.install-app-btn,.primary-btn,.mood-card{transition:transform .18s ease,background .2s ease,border-color .2s ease,box-shadow .2s ease}
+.track-actions button:active,.install-app-btn:active,.primary-btn:active,.mood-card:active{transform:scale(.97)}
+.primary-btn:hover,.install-app-btn:hover{box-shadow:0 0 26px #b8ff6c22}
+.loading-state{padding:22px 12px;color:var(--muted);animation:vfx-breathe 2s ease-in-out infinite;border-radius:12px}
+#trackList:has(.loading-state):after{content:"";display:block;width:32px;height:3px;border-radius:5px;background:linear-gradient(90deg,transparent,#b8ff6c,transparent);background-size:200% 100%;animation:vfx-shimmer 1.2s linear infinite}
+button:focus-visible,input:focus-visible{outline-color:#b8ff6c}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+@media(max-width:700px){
+ .hero{padding-right:16px}
+ .hero-art{display:block;position:relative;width:100%;height:130px;min-height:130px;margin:4px 0 2px;opacity:.95}
+ .hero-disc{width:116px;height:116px;position:absolute;right:15px;top:5px}
+ .orbit-one{width:145px;height:145px;right:0;top:-10px}
+ .orbit-two{width:175px;height:175px;right:-15px;top:-25px}
+ .floating-tag{font-size:8px}
+ .tag-top{right:112px;top:20px}
+ .tag-bottom{right:98px;bottom:7px}
+ .hero-number{bottom:12px;left:18px}
+}
+/* Hide decorative glyphs only; retain meaningful text controls */
+.brand-mark span,.eyebrow .live-dot,.hero-copy .primary-btn span,.floating-tag b,.floating-tag .tag-bars,.mood-card>b,.section-heading .text-btn span{display:none!important}
+.nav-item span{display:none}
